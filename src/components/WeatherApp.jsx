@@ -3,15 +3,22 @@ import { useEffect, useState } from "react";
 import { fetchWeather } from "../api/weather";
 import CurrentWeather from "./CurrentWeather";
 import FiveDayForecast from "./FiveDayForecast";
-import GeographyChart from "./GeographyChart"; // Import the Geo Chart
+import GeographyChart from "./GeographyChart";
 import HourlyForecast from "./HourlyForecast";
 import TodaysHighlights from "./TodaysHighlights";
+import CityMap from "./CityMap";
 
 export default function WeatherApp() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(true);
+  const [cities, setCities] = useState([
+    { name: "Hanoi", latitude: 21.0285, longitude: 105.8542 },
+    { name: "Ho Chi Minh City", latitude: 10.7769, longitude: 106.6959 },
+    { name: "Da Nang", latitude: 16.0544, longitude: 108.2022 },
+    // Add more cities as needed
+  ]);
 
   useEffect(() => {
     getWeather();
@@ -73,12 +80,12 @@ export default function WeatherApp() {
           <>
             <div className="lg:col-span-1 space-y-6">
               <CurrentWeather data={weatherData[0]} />
+              <CityMap cities={cities} />
               <FiveDayForecast data={weatherData} />
             </div>
             <div className="lg:col-span-2 space-y-6">
+              <HourlyForecast city={"Hanoi"} />
               <TodaysHighlights data={weatherData[0]} />
-              <HourlyForecast data={weatherData[0]} />
-              <GeographyChart data={weatherData} /> {/* Add the Geo Chart */}
             </div>
           </>
         ) : (
