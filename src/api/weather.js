@@ -2,7 +2,7 @@ import axiosInstance from "../config/axiosConfig";
 
 export const fetchWeather = async (city = "", country = "") => {
   try {
-    const response = await axiosInstance.get("/weather", {
+    const response = await axiosInstance.get("/current_weather", {
       params: {
         city,
         country,

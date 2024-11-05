@@ -2,7 +2,7 @@ import axiosInstance from "../config/axiosConfig";
 
 export const predictWeather = async (city = "") => {
   try {
-    const response = await axiosInstance.get("/predict_tomorrow", {
+    const response = await axiosInstance.get("/predict_today", {
       params: {
         city,
         country: "Vietnam", // Assuming country is fixed to Vietnam

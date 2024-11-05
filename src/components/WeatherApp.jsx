@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { fetchWeather } from "../api/weather";
 import CurrentWeather from "./CurrentWeather";
 import FiveDayForecast from "./FiveDayForecast";
-import GeographyChart from "./GeographyChart";
 import HourlyForecast from "./HourlyForecast";
 import TodaysHighlights from "./TodaysHighlights";
 import CityMap from "./CityMap";
@@ -45,7 +44,7 @@ export default function WeatherApp() {
       <header className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 md:mb-10 space-y-4 sm:space-y-0">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-            Weather forecast
+            ClimaFlow
           </h1>
         </div>
         <form
