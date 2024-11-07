@@ -41,7 +41,7 @@ function HourlyForecast({ city }) {
 
   return (
     <div className="bg-gray-800 rounded-xl p-4 sm:p-6 md:p-8 overflow-x-auto">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4">Predicted Weather</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4">Predicted Weather of {city}</h2>
       {/* <div className="flex flex-wrap justify-between">
         {hourlyData.map((hour, index) => (
           <div key={index} className="w-1/2 sm:w-1/4 lg:w-1/6 p-2">
