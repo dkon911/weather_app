@@ -74,7 +74,7 @@ export default function WeatherApp() {
           <div className="col-span-full flex justify-center items-center">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
           </div>
-        ) : weatherData ? (
+        ) : weatherData && weatherData.length > 0 ? (
           <>
             <div className="lg:col-span-1 space-y-6">
               <CurrentWeather data={weatherData[0]} />

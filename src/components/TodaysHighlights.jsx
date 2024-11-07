@@ -2,59 +2,106 @@
 import { Droplets, Eye, Moon, Sun, Thermometer, Wind } from "lucide-react";
 import HighlightCard from "./HighlightCard";
 
+function getStatusLabel(value, type) {
+  if (type === "humidity") {
+    if (value < 30) return { label: "Low", color: "bg-blue-500" };
+    if (value <= 60) return { label: "Moderate", color: "bg-green-500" };
+    return { label: "High", color: "bg-yellow-500" };
+  } else if (type === "wind_speed") {
+    if (value < 15) return { label: "Calm", color: "bg-green-500" };
+    if (value <= 30) return { label: "Breezy", color: "bg-yellow-500" };
+    return { label: "Windy", color: "bg-red-500" };
+  } else if (type === "visibility") {
+    if (value > 10) return { label: "Excellent", color: "bg-green-500" };
+    if (value > 5) return { label: "Good", color: "bg-yellow-500" };
+    return { label: "Poor", color: "bg-red-500" };
+  }
+  return { label: "Unknown", color: "bg-gray-500" };
+}
+
 function TodaysHighlights({ data }) {
+  const humidityStatus = getStatusLabel(data.humidity, "humidity");
+  const windSpeedStatus = getStatusLabel(data.wind_kph, "wind_speed");
+  const visibilityStatus = getStatusLabel(data.vis_km, "visibility");
+
   return (
-    <div className="bg-gray-800 rounded-xl p-4 sm:p-6 md:p-8">
+    <div className="bg-gray-800 text-white rounded-xl p-4 sm:p-6 md:p-8">
       <h2 className="text-xl sm:text-2xl font-bold mb-4">
         Today&#39;s Highlights
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <HighlightCard
-          title="Air Quality Index"
-          value="Good"
-          icon={<Wind size={24} />}
-        >
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div>PM2.5: {data.air_quality?.pm2_5 || "N/A"}</div>
-            <div>SO2: {data.air_quality?.so2 || "N/A"}</div>
-            <div>NO2: {data.air_quality?.no2 || "N/A"}</div>
-            <div>O3: {data.air_quality?.o3 || "N/A"}</div>
-          </div>
-        </HighlightCard>
-        <HighlightCard title="Sunrise & Sunset" icon={<Sun size={24} />}>
-          <div className="flex justify-between">
-            <div className="flex items-center">
-              <Sun size={16} className="mr-2" />
-              <span>{data.sunrise || "N/A"}</span>
-            </div>
-            <div className="flex items-center">
-              <Moon size={16} className="mr-2" />
-              <span>{data.sunset || "N/A"}</span>
-            </div>
-          </div>
-        </HighlightCard>
+          title="Weather Condition"
+          value={data.condition_text}
+          icon={
+            <img
+              src={data.condition_icon}
+              alt={data.condition_text}
+              className="w-8 h-8"
+            />
+          }
+        />
         <HighlightCard
           title="Humidity"
           value={`${data.humidity}%`}
           icon={<Droplets size={24} />}
-        />
+        >
+          <span
+            className={`absolute top-4 right-4 inline-block px-2 py-1 text-xs font-semibold rounded-full ${humidityStatus.color}`}
+          >
+            {humidityStatus.label}
+          </span>
+        </HighlightCard>
         <HighlightCard
           title="Pressure"
-          value={`${data.pressure_mb}hPa`}
+          value={`${data.pressure_mb} hPa`}
           icon={<Wind size={24} />}
         />
         <HighlightCard
           title="Visibility"
-          value={`${data.vis_km}km`}
+          value={`${data.vis_km} km`}
           icon={<Eye size={24} />}
-        />
+        >
+          <span
+            className={`absolute top-4 right-4 inline-block px-2 py-1 text-xs font-semibold rounded-full  ${visibilityStatus.color}`}
+          >
+            {visibilityStatus.label}
+          </span>
+        </HighlightCard>
         <HighlightCard
           title="Feels Like"
           value={`${data.feelslike_c}°C`}
           icon={<Thermometer size={24} />}
         />
+        <HighlightCard
+          title="Wind Speed"
+          value={`${data.wind_kph} kph`}
+          icon={<Wind size={24} />}
+        >
+          <span
+            className={`absolute top-4 right-4 inline-block px-2 py-1 text-xs font-semibold rounded-full ${windSpeedStatus.color}`}
+          >
+            {windSpeedStatus.label}
+          </span>
+        </HighlightCard>
+        <HighlightCard
+          title="Wind Direction"
+          value={`${data.wind_degree}°`}
+          icon={<Wind size={24} />}
+        />
+        <HighlightCard
+          title="Dew Point"
+          value={`${data.dewpoint_c}°C`}
+          icon={<Thermometer size={24} />}
+        />
+        <HighlightCard
+          title="Gust Speed"
+          value={`${data.gust_kph} kph`}
+          icon={<Wind size={24} />}
+        />
       </div>
     </div>
   );
 }
+
 export default TodaysHighlights;
