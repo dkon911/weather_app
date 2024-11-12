@@ -18,12 +18,12 @@ L.Icon.Default.mergeOptions({
 });
 
 const CityMap = ({ cities }) => {
-  const center = [14.0583, 108.2772]; // Center over Vietnam
+  const center = [16.0583, 108.2772]; // Center over Vietnam
 
   return (
     <MapContainer
       center={center}
-      zoom={6}
+      zoom={5}
       style={{ height: "400px", width: "100%" }}
     >
       <TileLayer

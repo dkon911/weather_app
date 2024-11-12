@@ -1,6 +1,6 @@
 import axiosInstance from "../config/axiosConfig";
 
-export const fetchWeather = async (city = "", country = "", date = "") => {
+export const fetchHistoricalWeather = async (city = "", country = "", date = "") => {
   try {
     const response = await axiosInstance.get("/historical_weather", {
       params: {
