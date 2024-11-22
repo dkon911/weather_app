@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Droplets, Eye, Moon, Sun, Thermometer, Wind } from "lucide-react";
+import { Droplets, Eye, Moon, Sun, Thermometer, Wind, ArrowUp } from "lucide-react";
 import HighlightCard from "./HighlightCard";
 
 function getStatusLabel(value, type) {
@@ -17,6 +17,17 @@ function getStatusLabel(value, type) {
     return { label: "Poor", color: "bg-red-500" };
   }
   return { label: "Unknown", color: "bg-gray-500" };
+}
+function WindDirectionArrow({ degree }) {
+  return (
+      <div className="relative w-8 h-8">
+        <ArrowUp
+            size={32}
+            className="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2"
+            style={{color: "greenyellow",transform: `rotate(${degree}deg)` }}
+        />
+      </div>
+  );
 }
 
 function TodaysHighlights({ data }) {
@@ -85,10 +96,14 @@ function TodaysHighlights({ data }) {
           </span>
         </HighlightCard>
         <HighlightCard
-          title="Wind Direction"
-          value={`${data.wind_degree}°`}
-          icon={<Wind size={24} />}
-        />
+            title="Wind Direction"
+            value={`${data.wind_degree}°`}
+            icon={<WindDirectionArrow degree={data.wind_degree} />}
+        >
+          <span className="text-sm text-gray-300">
+            {getWindDirection(data.wind_degree)}
+          </span>
+        </HighlightCard>
         <HighlightCard
           title="Dew Point"
           value={`${data.dewpoint_c}°C`}
@@ -103,5 +118,9 @@ function TodaysHighlights({ data }) {
     </div>
   );
 }
-
+function getWindDirection(degree) {
+  const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const index = Math.round(degree / 22.5) % 16;
+  return directions[index];
+}
 export default TodaysHighlights;

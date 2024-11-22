@@ -6,7 +6,7 @@ import {
 import moment from 'moment';
 
 const HistoricalWeather = ({ city, country, date }) => {
-  const [historicalData, setHistoricalData] = useState([]);
+  const [historicalData, setHistoricalData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,70 +34,71 @@ const HistoricalWeather = ({ city, country, date }) => {
   }
 
   return (
-      <div className="historical-weather-container">
-        <h2 className="text-xl font-bold">Historical Weather Data for {city}, {country} on {date}</h2>
-        <div className="chart-container">
+      <div className="min-h-screen bg-gray-900 mx-auto text-white p-4 px- sm:p-6 md:p-8 lg:p-10 xl:p-12">
+          <h2 className="text-xl font-bold">Historical Weather Data for {city}, {country} on {date}</h2>
+
           {/* Temperature Chart */}
           <h3 className="font-bold mb-4">Temperature and feels-like temperature throughout the day</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={historicalData}>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis
-                  dataKey="time"
-                  angle={-45}
-                  textAnchor="end"
-                  tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
-              />
-              <YAxis/>
-              <Tooltip/>
-              <Legend/>
-              <Line type="monotone" dataKey="temp_c" stroke="#8884d8"/>
-              <Line type="monotone" dataKey="feelslike_c" stroke="#82ca9d"/>
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={historicalData}>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis
+                    dataKey="time"
+                    angle={-45}
+                    textAnchor="end"
+                    tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
+                />
+                <YAxis/>
+                <Tooltip/>
+                <Legend/>
+                <Line type="monotone" dataKey="temp_c" stroke="#8884d8"/>
+                <Line type="monotone" dataKey="feelslike_c" stroke="#82ca9d"/>
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-        {/* Humidity Chart */}
-        <h3 className="font-bold mb-4">Humidity levels throughout the day</h3>
-        <div className="chart-container">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={historicalData}>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis
-                  dataKey="time"
-                  angle={-45}
-                  textAnchor="end"
-                  tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
-              />
-              <YAxis/>
-              <Tooltip/>
-              <Legend/>
-              <Line type="monotone" dataKey="humidity" stroke="#3498db"/>
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+          {/* Humidity Chart */}
+          <h3 className="font-bold mb-4">Humidity levels throughout the day</h3>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={historicalData}>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis
+                    dataKey="time"
+                    angle={-45}
+                    textAnchor="end"
+                    tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
+                />
+                <YAxis/>
+                <Tooltip/>
+                <Legend/>
+                <Line type="monotone" dataKey="humidity" stroke="#3498db"/>
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
 
-        {/* Wind Speed Chart */}
-        <h3 className="font-bold mb-4">Wind Speed throughout the day</h3>
-        <div className="chart-container">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={historicalData}>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis
-                  dataKey="time"
-                  angle={-45}
-                  textAnchor="end"
-                  tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
-              />
-              <YAxis/>
-              <Tooltip/>
-              <Legend/>
-              <Line type="monotone" dataKey="wind_kph" stroke="#e74c3c"/>
-            </LineChart>
-          </ResponsiveContainer>
+          {/* Wind Speed Chart */}
+          <h3 className="font-bold mb-4">Wind Speed throughout the day</h3>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={historicalData}>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis
+                    dataKey="time"
+                    angle={-45}
+                    textAnchor="end"
+                    tickFormatter={(tick) => moment.utc(tick).format('HH:mm')}
+                />
+                <YAxis/>
+                <Tooltip/>
+                <Legend/>
+                <Line type="monotone" dataKey="wind_kph" stroke="#e74c3c"/>
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      </div>
-  );
-};
+        );
+        };
 
-export default HistoricalWeather;
+        export default HistoricalWeather;

@@ -25,7 +25,7 @@ const WeatherLineChart = ({ data }) => {
     datasets: [
       {
         label: "Temperature (°C)",
-        data: data.map((point) => point.temperature),
+        data: data.map((point) => point.temperature + 3,655),
         fill: false,
         borderColor: "rgba(75, 192, 192, 1)",
         tension: 0.1,
