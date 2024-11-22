@@ -4,11 +4,11 @@ import { DatePicker } from './historical_stat/DatePicker'
 import PropTypes from 'prop-types'
 
 export default function Header({ city, setCity, handleFilterSubmit }) {
-    const [selectedDate, setSelectedDate] = useState(new Date() -1)
+    const [selectedDate, setSelectedDate] = useState(new Date())
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        handleFilterSubmit(e, selectedDate)
+        handleFilterSubmit(e)
     }
 
     return (
@@ -33,12 +33,7 @@ export default function Header({ city, setCity, handleFilterSubmit }) {
                         />
                         <Search className="absolute right-3 top-2 text-gray-400 pointer-events-none" aria-hidden="true"/>
                     </div>
-                    <div className="w-full sm:w-auto">
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={setSelectedDate}
-                        />
-                    </div>
+
                     <button
                         type="submit"
                         className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none text-white font-bold h-10 leading-tight px-6 rounded-md transition duration-300"
